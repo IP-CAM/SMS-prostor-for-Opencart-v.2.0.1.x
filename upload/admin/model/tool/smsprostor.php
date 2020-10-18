@@ -1,6 +1,6 @@
 <?php
 
-class ModelExtensionModuleSmsprostor extends Model {
+class ModelToolSmsprostor extends Model {
 	
 	public function install() {
 	// Install Code

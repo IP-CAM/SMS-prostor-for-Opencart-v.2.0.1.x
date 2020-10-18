@@ -1,5 +1,5 @@
 <?php
-class ModelExtensionModuleSmsprostor extends Model {
+class ModelToolSmsprostor extends Model {
 
     private function send_request_get($url, $params) {
         $ch = curl_init($url.http_build_query($params));

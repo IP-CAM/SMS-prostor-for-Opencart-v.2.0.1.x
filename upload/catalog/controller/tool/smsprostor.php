@@ -1,5 +1,5 @@
 <?php
-class ControllerExtensionModuleSmsprostor extends Controller {
+class ControllerToolSmsprostor extends Controller {
 
 	public function onCheckout($order_id) {
 	    //загрузка ордера
