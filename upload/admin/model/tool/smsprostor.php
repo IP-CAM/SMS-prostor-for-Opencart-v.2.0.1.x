@@ -1,14 +1,6 @@
 <?php
 
 class ModelToolSmsprostor extends Model {
-	
-	public function install() {
-	// Install Code
-	}
-
-	public function uninstall() {
-	// Uninstall Code
-	}
 
     public function get_balance($login = '', $password = '') {
 	    $response = $this->send_request('http://api.prostor-sms.ru/messages/v2/balance/', array(
@@ -17,8 +9,12 @@ class ModelToolSmsprostor extends Model {
         ));
         $json['error'] = 0;
         $del = explode(';', $response);
-        $json['balance'] = $del[1]." р.";
-        return $json;
+        if (isset($del[1])) {
+            $json['balance'] = $del[1]." р.";
+            return $json; 
+        } else {
+            return array();
+        }
     }
 
     public function get_senders($login = '', $password = '') {
@@ -26,11 +22,16 @@ class ModelToolSmsprostor extends Model {
             "login"	=>	$login,
             "password" => $password
         ));
+        if ((isset($response["code"])) && ($response["code"] == 1)) {
+            return array();
+        }
         $response = explode("\n", $response);
         $senders = array();
-
         foreach ($response as $sender) {
             $arr = explode(';', $sender);
+            if (strpos($arr[0], "error") !== false) {
+                return false;
+            }
             $senders[] = $arr[0];
         }
         return $senders;

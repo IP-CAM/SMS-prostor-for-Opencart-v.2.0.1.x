@@ -16,9 +16,23 @@
 				'id'       => 'menu-prostorsms',
 				'icon'	   => 'fa-commenting', 
 				'name'	   => 'ProstorSMS',
-				'href'     => $this->url->link('tool/hotfrost', 'token=' . $this->session->data['token'], true),
+				'href'     => $this->url->link('tool/smsprostor', 'token=' . $this->session->data['token'], true),
 				'children' => array()
 			);
+      ]]></add>
+    </operation>
+  </file>
+
+  <file path="catalog/model/checkout/order.php">
+    <operation>
+      <search index="0"><![CDATA[
+      $order_info = $this->getOrder($order_id);
+      ]]></search>
+      <add position="after"><![CDATA[
+      $this->load->model('tool/smsprostor');
+      if (in_array($order_info['order_status_id'], $this->config->get('config_complete_status'))) {
+        $this->model_tool_smsprostor->checkout($order_id);
+      }
       ]]></add>
     </operation>
   </file>

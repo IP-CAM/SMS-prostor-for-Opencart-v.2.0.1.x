@@ -1,22 +1,16 @@
 <?php
-class ControllerToolSmsprostor extends Controller {
+class ModelToolSmsprostor extends Model {
 
-	public function onCheckout($order_id) {
-	    //загрузка ордера
+    public function checkout($order_id) {
 		$this->load->model('checkout/order');
 		$order_info = $this->model_checkout_order->getOrder($order_id);
-		//загрузка модели
-        $this->load->model('extension/module/smsprostor');
-        //загрузка настроек модуля
 		$this->load->model('setting/setting');
 		$setting = $this->model_setting_setting->getSetting('smsprostor');
-        //проверка корректности
 		if( isset($setting)
             && ($setting['smsprostor-enabled'])
             && (!empty($setting['smsprostor-login']))
             && (!empty($setting['smsprostor-password']))
         ) {
-		    //отправка сообщения покупателю
             if (isset($setting['smsprostor-send-customer'])) {
                 $original = array(
                     "{storename}",
@@ -31,7 +25,7 @@ class ControllerToolSmsprostor extends Controller {
                     $order_info['lastname']
                 );
                 $message = str_replace($original, $replace, $setting['smsprostor-message-customer']);
-                $this->model_extension_module_smsprostor->sms_send(
+                $this->sms_send(
                     $setting['smsprostor-login'],
                     $setting['smsprostor-password'],
                     $order_info['telephone'],
@@ -39,7 +33,6 @@ class ControllerToolSmsprostor extends Controller {
                     $setting['smsprostor-sender']
                 );
             }
-            //отправка сообщения админу
             if (isset($setting['smsprostor-send-admin'])) {
                 $original = array(
                     "{storename}",
@@ -58,7 +51,7 @@ class ControllerToolSmsprostor extends Controller {
                     $this->currency->format($order_info['total'])
                 );
                 $message = str_replace($original, $replace, $setting['smsprostor-message-customer']);
-                $this->model_extension_module_smsprostor->sms_send(
+                $this->sms_send(
                     $setting['smsprostor-login'],
                     $setting['smsprostor-password'],
                     $setting['smsprostor-phone'],
@@ -69,4 +62,28 @@ class ControllerToolSmsprostor extends Controller {
 		}
     }
 
+    private function send_request_get($url, $params) {
+        $ch = curl_init($url.http_build_query($params));
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 30);
+        $result = curl_exec($ch);
+        curl_close($ch);
+        return $result;
+    }
+
+    public function sms_send($login, $password, $to, $text, $sender='') {
+        return $this->send_request_get('http://api.prostor-sms.ru/messages/v2/send/?', array(
+            "login"	    =>	$login,
+            "password"  =>  $password,
+            "phone"		=>	$this->clear_phone($to),
+            "text"		=>	$text,
+            "sender"    =>	$sender
+        ));
+    }
+
+    private function clear_phone($phone) {
+        $original = array('(', ')', '-', ' ');
+        $replace = array('','','','');
+        return str_replace($original, $replace, $phone);
+    }
 }

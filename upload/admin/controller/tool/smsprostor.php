@@ -6,14 +6,11 @@ class ControllerToolSmsprostor extends Controller {
 		"error authorization" =>"Ошибка авторизации");
 
 	public function index() {
-	    //подключение перевода
 		$this->load->language('tool/smsprostor');
-		//подключение моделей
 		$this->load->model('tool/smsprostor');
 		$this->load->model('localisation/language');
 		$this->load->model('setting/setting');
 
-		//установка заголовка страницы
 		$this->document->setTitle($this->language->get('heading_title'));
         $this->document->addStyle('view/stylesheet/select2/select2.min.css');
         $this->document->addScript('view/javascript/select2/select2.min.js');
@@ -48,18 +45,12 @@ class ControllerToolSmsprostor extends Controller {
 			'href' => $this->url->link('common/home', 'token=' . $this->session->data['token'], 'SSL'),
 		);
 		$this->data['breadcrumbs'][] = array(
-			'text' => $this->language->get('text_module'),
-			'href' => $this->url->link('tool', 'token=' . $this->session->data['token'], 'SSL'),
-		);
-		$this->data['breadcrumbs'][] = array(
 			'text' => $this->language->get('heading_title'),
 			'href' => $this->url->link('tool/smsprostor', 'token=' . $this->session->data['token'], 'SSL'),
 		);
 
-		//загрузка языковых переменных
         $this->data = array_merge($this->data, $this->load->language('tool/smsprostor'));
 
-		//загрузка ссылок
 		$this->data['error_warning']  = '';
 		$this->data['action']         = $this->url->link('tool/smsprostor', 'token=' . $this->session->data['token'], 'SSL');
 		$this->data['action_process'] = str_replace('amp;','', $this->url->link('tool/smsprostor/process_recipients', 'token=' . $this->session->data['token'], 'SSL'));
@@ -72,8 +63,9 @@ class ControllerToolSmsprostor extends Controller {
 
 		if (isset($this->data['data']['smsprostor-login']) && isset($this->data['data']['smsprostor-password'])) {
 			$balance = $this->model_tool_smsprostor->get_balance($this->data['data']['smsprostor-login'], $this->data['data']['smsprostor-password']);
-			$this->data['balance'] = (in_array('balance', $balance))?$balance['balance']:'-';
-            $this->data['senders'] = $this->model_tool_smsprostor->get_senders($this->data['data']['smsprostor-login'], $this->data['data']['smsprostor-password']);
+			$this->data['balance'] = (in_array('balance', $balance))?$balance['balance']:'<не определен>';
+			$senders = $this->model_tool_smsprostor->get_senders($this->data['data']['smsprostor-login'], $this->data['data']['smsprostor-password']);
+            $this->data['senders'] = $senders? $senders: array();
 		}
 
         $this->data['customer_groups'] = $this->model_tool_smsprostor->get_customer_groups();
@@ -84,25 +76,6 @@ class ControllerToolSmsprostor extends Controller {
 		$this->data['footer']		= $this->load->controller('common/footer');
 
 		$this->response->setOutput($this->load->view('tool/smsprostor.tpl', $this->data));
-	}
-
-	public function install() {
-		$this->load->model('tool/smsprostor');
-		$this->model_tool_smsprostor->install();
-		$this->load->model('extension/event');
-		$this->model_extension_event->addEvent('smsprostor', 'post.order.history.add', 'module/smsprostor/onCheckout');
-		$this->load->model('setting/setting');
-		$this->model_setting_setting->editSetting('smsprostor', array(
-            'smsprostor-sender' => '', //сиимвольное обозначение администратора
-            'smsprostor-phone' => '', //телефон администратора
-            'smsprostor-login' => '', //логин
-            'smsprostor-password' => '', //пароль
-            'smsprostor-message-customer' => '{firstname}! Спасибо за покупку в нашем магазине. Ваш номер заказа {orderid}',//текст сообщения клиенту
-            'smsprostor-message-admin' => 'Новый заказ #{orderid} от {firstname} {lastname} на сумму {total}',//текст сообщения админу
-            'smsprostor-send-customer' => 0, //отправлять клиенту при заказе
-            'smsprostor-send-admin' => 0, //отправлять админу при заказе
-            'smsprostor-enabled' => 0 //модуль включен/выключен
-        ), 0);
 	}
 
 	public function process_recipients(){
@@ -159,13 +132,4 @@ class ControllerToolSmsprostor extends Controller {
             }
         }
     }
-
-	public function uninstall() {
-		$this->load->model('setting/setting');
-		$this->model_setting_setting->deleteSetting('smsprostor_module', 0);
-		$this->load->model('tool/smsprostor');
-		$this->model_tool_smsprostor->uninstall();
-		$this->load->model('extension/event');
-		$this->model_extension_event->deleteEvent('smsprostor');
-	}
 }

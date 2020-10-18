@@ -26,10 +26,10 @@ $_['entry_support']          = 'Поддержка: <a href="tel:88007007066">8 
 $_['entry_addbalance']       = '<a href="https://prostor-sms.ru/bill/?crmplatform=opencart" target="_blank">[пополнить]</a>';
 $_['entry_gosite']           = '<a href="https://prostor-sms.ru/?crmplatform=opencart" target="_blank">[на сайт]</a>';
 $_['entry_enabled']          = 'Интеграция';
-$_['entry_message_customer'] = 'СМС покупателю';
+$_['entry_message_customer'] = 'Уважаемый {firstname} {lastname}! Спасибо за покупки в {storename}. Ваш номер заказа №{orderid}.';
 $_['entry_message_responder']= 'Сообщение';
 $_['entry_send_customer']    = 'Отправлять СМС покупателю';
-$_['entry_message_admin']    = 'СМС продавцу';
+$_['entry_message_admin']    = 'Сделан заказ №{orderid} в {storename} от имени {firstname} {lastname} на сумму {total}.';
 $_['entry_send_admin']       = 'Отправлять СМС администратору';
 $_['entry_login']            = 'Логин';
 $_['entry_password']         = 'Пароль';

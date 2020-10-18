@@ -56,7 +56,7 @@
 
 								<div class="col-sm-10">
 									<select name="smsprostor-enabled" class="form-control">
-										<?php if ($data['smsprostor-enabled']) { ?>
+										<?php if ((isset($data['smsprostor-enabled'])) && ($data['smsprostor-enabled'])) { ?>
 										<option value="1" selected="selected"><?= $text_enable?></option>
 										<option value="0"><?=$text_disable?></option>
 										<?php } else { ?>
@@ -69,7 +69,7 @@
 
 							<div class="form-group">
 								<label class="col-sm-2 control-label" for="input-message-customer">
-									<span data-toggle="tooltip" data-original-title="<?=$help_message_customer?>"><?=$entry_message_customer?></span>
+									<span data-toggle="tooltip" data-original-title="<?=$help_message_customer?>">СМС покупателю</span>
 								</label>
 								<div class="col-sm-10">
 
@@ -89,7 +89,7 @@
 
 							<div class="form-group">
 								<label class="col-sm-2 control-label" for="input-message-admin">
-									<span data-toggle="tooltip" data-original-title="<?=$help_message_admin?>"><?=$entry_message_admin?></span>
+									<span data-toggle="tooltip" data-original-title="<?=$help_message_admin?>">СМС администратору</span>
 								</label>
 								<div class="col-sm-10">
 
@@ -183,9 +183,11 @@
 
 								<div class="col-sm-10">
 									<select name="smsprostor-sender" id="input-sender" class="form-control" <?=(empty($senders)? 'disabled': '')?>>
-									<?php foreach ($senders as $id => $sender): ?>
-									<option value="<?=$sender?>" <?=( ((isset($data['smsprostor-sender'])) && ($sender == $data['smsprostor-sender']) )? 'selected': '')?>><?=$sender?></option>
-									<?php endforeach; ?>
+									<?php if (isset($senders)): ?>
+										<?php foreach ($senders as $id => $sender): ?>
+										<option value="<?=$sender?>" <?=( ((isset($data['smsprostor-sender'])) && ($sender == $data['smsprostor-sender']) )? 'selected': '')?>><?=$sender?></option>
+										<?php endforeach; ?>
+									<?php endif; ?>
 									</select>
 								</div>
 							</div>
