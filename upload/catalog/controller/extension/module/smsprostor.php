@@ -1,12 +1,12 @@
 <?php
-class ControllerModuleSmsprostor extends Controller {
+class ControllerExtensionModuleSmsprostor extends Controller {
 
 	public function onCheckout($order_id) {
 	    //загрузка ордера
 		$this->load->model('checkout/order');
 		$order_info = $this->model_checkout_order->getOrder($order_id);
 		//загрузка модели
-        $this->load->model('module/smsprostor');
+        $this->load->model('extension/module/smsprostor');
         //загрузка настроек модуля
 		$this->load->model('setting/setting');
 		$setting = $this->model_setting_setting->getSetting('smsprostor');
@@ -31,7 +31,7 @@ class ControllerModuleSmsprostor extends Controller {
                     $order_info['lastname']
                 );
                 $message = str_replace($original, $replace, $setting['smsprostor-message-customer']);
-                $this->model_module_smsprostor->sms_send(
+                $this->model_extension_module_smsprostor->sms_send(
                     $setting['smsprostor-login'],
                     $setting['smsprostor-password'],
                     $order_info['telephone'],
@@ -58,7 +58,7 @@ class ControllerModuleSmsprostor extends Controller {
                     $this->currency->format($order_info['total'])
                 );
                 $message = str_replace($original, $replace, $setting['smsprostor-message-customer']);
-                $this->model_module_smsprostor->sms_send(
+                $this->model_extension_module_smsprostor->sms_send(
                     $setting['smsprostor-login'],
                     $setting['smsprostor-password'],
                     $setting['smsprostor-phone'],

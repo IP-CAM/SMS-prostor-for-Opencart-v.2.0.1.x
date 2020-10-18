@@ -82,7 +82,7 @@
 										<button class="btn btn-default btni" type="button" data-insert="{lastname}" data-target="input-message-customer"><?=$button_lastname?></button>
 									</div>
 									<br><br>
-									<textarea name="smsprostor-message-customer" rows="5" placeholder="<?=$entry_message_customer?>" id="input-message-customer" class="form-control"><?=$data['smsprostor-message-customer']?></textarea>
+									<textarea name="smsprostor-message-customer" rows="5" placeholder="<?=$entry_message_customer?>" id="input-message-customer" class="form-control"><?php echo isset($data['smsprostor-message-customer'])? $data['smsprostor-message-customer']: ''; ?></textarea>
 
 								</div>
 							</div>
@@ -104,7 +104,7 @@
 										<button class="btn btn-default btni" type="button" data-insert="{email}" data-target="input-message-admin"><?=$button_email?></button>
 									</div>
 									<br><br>
-									<textarea name="smsprostor-message-admin" rows="5" placeholder="<?=$entry_message_admin?>" id="input-message-admin" class="form-control"><?=$data['smsprostor-message-admin']?></textarea>
+									<textarea name="smsprostor-message-admin" rows="5" placeholder="<?=$entry_message_admin?>" id="input-message-admin" class="form-control"><?php echo isset($data['smsprostor-message-admin'])? $data['smsprostor-message-admin']: ''; ?></textarea>
 								</div>
 							</div>
 						</div>
@@ -156,7 +156,7 @@
 								</label>
 
 								<div class="col-sm-10">
-									<input name="smsprostor-login" type="text" placeholder="<?=$entry_login?>" id="input-login" class="form-control" value="<?=$data['smsprostor-login']?>">
+									<input name="smsprostor-login" type="text" placeholder="<?=$entry_login?>" id="input-login" class="form-control" value="<?php echo isset($data['smsprostor-login'])? $data['smsprostor-login']: ''; ?>">
 								</div>
 							</div>
 
@@ -169,7 +169,7 @@
 								</label>
 
 								<div class="col-sm-10">
-									<input name="smsprostor-password" type="text" placeholder="<?=$entry_password?>" id="input-password" class="form-control" value="<?=$data['smsprostor-password']?>">
+									<input name="smsprostor-password" type="text" placeholder="<?=$entry_password?>" id="input-password" class="form-control" value="<?php echo isset($data['smsprostor-password'])? $data['smsprostor-password']: ''; ?>">
 								</div>
 							</div>
 
@@ -199,7 +199,7 @@
 								</label>
 
 								<div class="col-sm-10">
-									<input name="smsprostor-phone" type="text" placeholder="<?=$entry_phone?>" id="input-phone" class="form-control digitOnly" value="<?=$data['smsprostor-phone']?>" maxlength="11">
+									<input name="smsprostor-phone" type="text" placeholder="<?=$entry_phone?>" id="input-phone" class="form-control digitOnly" value="<?php echo isset($data['smsprostor-phone'])? $data['smsprostor-phone']: '';?>" maxlength="11">
 								</div>
 							</div>
 						</div>
