@@ -30,9 +30,7 @@
       ]]></search>
       <add position="after"><![CDATA[
       $this->load->model('tool/smsprostor');
-      if (in_array($order_info['order_status_id'], $this->config->get('config_complete_status'))) {
-        $this->model_tool_smsprostor->checkout($order_id);
-      }
+      $this->model_tool_smsprostor->checkout($order_id, $order_status_id);
       ]]></add>
     </operation>
   </file>

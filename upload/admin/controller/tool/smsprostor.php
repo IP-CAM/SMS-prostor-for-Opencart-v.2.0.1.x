@@ -8,7 +8,8 @@ class ControllerToolSmsprostor extends Controller {
 	public function index() {
 		$this->load->language('tool/smsprostor');
 		$this->load->model('tool/smsprostor');
-		$this->load->model('localisation/language');
+        $this->load->model('localisation/language');
+        $this->load->model('localisation/order_status');
 		$this->load->model('setting/setting');
 
 		$this->document->setTitle($this->language->get('heading_title'));
@@ -59,7 +60,8 @@ class ControllerToolSmsprostor extends Controller {
 
 		$this->data['data']           = $this->model_setting_setting->getSetting('smsprostor');
 
-		$this->data['token']          = $this->session->data['token'];
+        $this->data['token']          = $this->session->data['token'];
+        $this->data['statuses']       = $this->model_localisation_order_status->getOrderStatuses();
 
 		if (isset($this->data['data']['smsprostor-login']) && isset($this->data['data']['smsprostor-password'])) {
 			$balance = $this->model_tool_smsprostor->get_balance($this->data['data']['smsprostor-login'], $this->data['data']['smsprostor-password']);

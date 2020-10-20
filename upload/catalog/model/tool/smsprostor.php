@@ -1,7 +1,7 @@
 <?php
 class ModelToolSmsprostor extends Model {
 
-    public function checkout($order_id) {
+    public function checkout($order_id, $order_status) {
 		$this->load->model('checkout/order');
 		$order_info = $this->model_checkout_order->getOrder($order_id);
 		$this->load->model('setting/setting');
@@ -11,7 +11,7 @@ class ModelToolSmsprostor extends Model {
             && (!empty($setting['smsprostor-login']))
             && (!empty($setting['smsprostor-password']))
         ) {
-            if (isset($setting['smsprostor-send-customer'])) {
+            if ((isset($setting['smsprostor-send-customer'])) && ($order_status == $setting['smsprostor-status1'])) {
                 $original = array(
                     "{storename}",
                     "{orderid}",
@@ -33,7 +33,7 @@ class ModelToolSmsprostor extends Model {
                     $setting['smsprostor-sender']
                 );
             }
-            if (isset($setting['smsprostor-send-admin'])) {
+            if ((isset($setting['smsprostor-send-admin'])) && ($order_status == $setting['smsprostor-status2'])) {
                 $original = array(
                     "{storename}",
                     "{orderid}",
@@ -48,9 +48,9 @@ class ModelToolSmsprostor extends Model {
                     $order_info['firstname'],
                     $order_info['lastname'],
                     $order_info['email'],
-                    $this->currency->format($order_info['total'])
+                    $this->currency->format($order_info['total'], $this->session->data['currency'])
                 );
-                $message = str_replace($original, $replace, $setting['smsprostor-message-customer']);
+                $message = str_replace($original, $replace, $setting['smsprostor-message-admin']);
                 $this->sms_send(
                     $setting['smsprostor-login'],
                     $setting['smsprostor-password'],

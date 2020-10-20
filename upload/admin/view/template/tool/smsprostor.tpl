@@ -68,6 +68,21 @@
 							</div>
 
 							<div class="form-group">
+
+								<label class="col-sm-2 control-label" for="smsprostor-status1">
+									<span data-toggle="tooltip" data-original-title="Статус заказа покупателя">Статус заказа покупателя</span>
+								</label>
+
+								<div class="col-sm-10">
+									<select name="smsprostor-status1" class="form-control">
+										<?php foreach ($statuses as $status) : ?>
+										<option value="<?=$status["order_status_id"]?>"  <?php echo ((isset($data['smsprostor-status1'])) && ($data['smsprostor-status1'] == $status["order_status_id"]))? 'selected="selected"': "";?>><?=$status["name"]?></option>
+										<?php endforeach; ?>
+									</select>
+								</div>
+							</div>
+
+							<div class="form-group">
 								<label class="col-sm-2 control-label" for="input-message-customer">
 									<span data-toggle="tooltip" data-original-title="<?=$help_message_customer?>">СМС покупателю</span>
 								</label>
@@ -82,9 +97,24 @@
 										<button class="btn btn-default btni" type="button" data-insert="{lastname}" data-target="input-message-customer"><?=$button_lastname?></button>
 									</div>
 									<br><br>
-									<textarea name="smsprostor-message-customer" rows="5" placeholder="<?=$entry_message_customer?>" id="input-message-customer" class="form-control"><?php echo isset($data['smsprostor-message-customer'])? $data['smsprostor-message-customer']: ''; ?></textarea>
+									<textarea name="smsprostor-message-customer" rows="5" placeholder="<?=$entry_message_customer?>" id="input-message-customer" class="form-control"><?php echo isset($data['smsprostor-message-customer'])? $data['smsprostor-message-customer']: 'Уважаемый {firstname} {lastname}! Спасибо за покупки в {storename}. Ваш номер заказа {orderid}.'; ?></textarea>
 
 								</div>
+							</div>
+
+							<div class="form-group">
+
+							<label class="col-sm-2 control-label" for="smsprostor-status2">
+								<span data-toggle="tooltip" data-original-title="Статус заказа администратора">Статус заказа администратора</span>
+							</label>
+
+							<div class="col-sm-10">
+								<select name="smsprostor-status2" class="form-control">
+									<?php foreach ($statuses as $status) : ?>
+									<option value="<?=$status["order_status_id"]?>"  <?php echo ((isset($data['smsprostor-status2'])) && ($data['smsprostor-status2'] == $status["order_status_id"]))? 'selected="selected"': "";?>><?=$status["name"]?></option>
+									<?php endforeach; ?>
+								</select>
+							</div>
 							</div>
 
 							<div class="form-group">
@@ -104,7 +134,7 @@
 										<button class="btn btn-default btni" type="button" data-insert="{email}" data-target="input-message-admin"><?=$button_email?></button>
 									</div>
 									<br><br>
-									<textarea name="smsprostor-message-admin" rows="5" placeholder="<?=$entry_message_admin?>" id="input-message-admin" class="form-control"><?php echo isset($data['smsprostor-message-admin'])? $data['smsprostor-message-admin']: ''; ?></textarea>
+									<textarea name="smsprostor-message-admin" rows="5" placeholder="<?=$entry_message_admin?>" id="input-message-admin" class="form-control"><?php echo isset($data['smsprostor-message-admin'])? $data['smsprostor-message-admin']: 'Сделан заказ №{orderid} в {storename} от имени {firstname} {lastname} на сумму {total}.'; ?></textarea>
 								</div>
 							</div>
 						</div>
