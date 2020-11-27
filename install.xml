@@ -7,7 +7,7 @@
   <link>https://codehandler.ru</link>
   
   <file path="admin/controller/common/column_left.php">
-    <operation>
+    <operation error="skip">
       <search index="0"><![CDATA[
       return $this->load->view('common/column_left', $data);
       ]]></search>
@@ -19,6 +19,28 @@
 				'href'     => $this->url->link('tool/smsprostor', 'token=' . $this->session->data['token'], true),
 				'children' => array()
 			);
+      ]]></add>
+    </operation>
+  </file>
+
+  <file path="admin/controller/common/menu.php">
+    <operation error="skip">
+      <search index="0"><![CDATA[
+      public function index() {
+      ]]></search>
+      <add position="after"><![CDATA[
+      $data['smsprostor_href'] = $this->url->link('tool/smsprostor', 'token=' . $this->session->data['token'], 'SSL');
+      ]]></add>
+    </operation>
+  </file>
+
+  <file path="admin/view/template/common/menu.tpl">
+    <operation error="skip">
+      <search index="0"><![CDATA[
+ <li id="dashboard"><a href="<?php echo $home; ?>"><i class="fa fa-dashboard fa-fw"></i> <span><?php echo $text_dashboard; ?></span></a></li>
+      ]]></search>
+      <add position="after"><![CDATA[
+      <li id="smsprostor"><a href="<?php echo $smsprostor_href; ?>"><i class="fa fa-commenting fa-fw"></i> <span>ProstorSMS</span></a></li>
       ]]></add>
     </operation>
   </file>

@@ -231,7 +231,7 @@
 								</label>
 
 								<div class="col-sm-10">
-									<input name="smsprostor-phone" type="text" placeholder="<?=$entry_phone?>" id="input-phone" class="form-control digitOnly" value="<?php echo isset($data['smsprostor-phone'])? $data['smsprostor-phone']: '';?>" maxlength="11">
+									<input name="smsprostor-phone" type="text" placeholder="<?=$entry_phone?>" id="input-phone" class="form-control digitOnly" value="<?php echo isset($data['smsprostor-phone'])? $data['smsprostor-phone']: '';?>" maxlength="12">
 								</div>
 							</div>
 						</div>
