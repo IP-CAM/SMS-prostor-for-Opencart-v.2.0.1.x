@@ -1,31 +1,31 @@
-Краткая инструкция по работе с модулем:
+Brief instructions for working with the module:
 
-1. Перейдите в Установщик дополнений OCMOD
-2. Нажмите кнопку Загрузить и выберите архив модуля. Модулб будет загружен и установлен.
+1. Go to OCMOD Add-on Installer
+2. Click the Load button and select the module archive. The module will be downloaded and installed.
 
-Возможные ошибки:
-- для успешной установки ocmod модуля необходим доступ по фтп (требование Opencart),
-либо модуль https://www.opencart.com/index.php?route=marketplace/extension/info&extension_id=18892&filter_search=iSenseLabs,
-который убирает требование включенного фтп.
-- проверьте, установлено ли дополнение ZIP в настройках php
+Possible mistakes:
+- to successfully install the ocmod module, you need FTP access (Opencart requirement),
+or module https://www.opencart.com/index.php?route=marketplace/extension/info&extension_id=18892&filter_search=iSenseLabs,
+which removes the requirement for an included ftp.
+- check if ZIP addon is installed in php settings
 
-3. После успешной загрузки модуля необходимо интегрировать его файлы в Opencart. Для этого
-перейдите в Менеджер дополнений и нажмите кнопку Обновить. Слева в основном меню появится кнопка модуля SMSPROSTOR.
-4. Теперь нужно дать разрешения на работу модуля. Перейдите Пользователи->Группы пользователей и напротив группы
-Administrator (в большинстве случаев) нажмите кнопку Редактировать. В списках Разрешить просмотр и Разрешить редактирование
-найдите модуль tool/smsprostor (он почти в самом низу) и установите галочки. Сохраните настройки.
-5. С помощью кнопки в главном меню Opencart перейдите к модулю SMSPROSTOR.
-6. На вкладке Настройки шлюза установите логин, пароль (можно получить по ссылке https://prostor-sms.ru/?crmplatform=opencart),
-а также введите телефон администратора в формате 79999999999. На телефон администратора будут отправляться те смс,
-которые предназначены для владельца магазина. Сохраните настройки модуля.
-7. Если введены корректные учетные данные, в верхней части модуля отобразится ваш текущий счет и на вкладке Настройки шлюза
-станет доступным список для выбора имени отправителя. При необходимости выберите отправителя.
-8. Вкладка Рассылка используется для отправки смс отдельному покупателю или сразу группе покупателей.
-9. Вкладка Уведомления используется для настроек смс:
-- Интеграция (выкл\вкл) - включает или отключает отправку всех смс
-- Статус заказа покупателя - статус заказа, при переходе сделки в который покупатель будет получать смс
-- Отправлять смс покупателю - включает и отключает отправку смс покупателю
-- Смс покупателю - текст смс, можно воспользоватеься кнопками, которые вставляют шаблоны
-- Статус заказа администратора - статус заказа, при переходе сделки в который администратор будет получать смс
-- Отправлять смс администратору - включает и отключает отправку смс администратору
-- Смс администратору - текст смс, можно воспользоватеься кнопками, которые вставляют шаблоны
+3. After successful loading of the module, you need to integrate its files into Opencart. For this
+go to the Add-ons Manager and click the Update button. The SMSPROSTOR module button will appear on the left of the main menu.
+4. Now you need to give permission for the module to work. Navigate to Users-> User Groups and opposite the group
+Administrator (in most cases) click the Edit button. In the Allow viewing and Allow editing lists
+find the tool / smsprostor module (it's almost at the very bottom) and check the boxes. Save your settings.
+5. Using the button in the main menu of Opencart go to the SMSPROSTOR module.
+6. On the Gateway Settings tab, set the login, password (can be obtained from the link https://prostor-sms.ru/?crmplatform=opencart),
+and also enter the administrator's phone in the format 79999999999. The SMS will be sent to the administrator's phone
+which are intended for the store owner. Save the module settings.
+7. If you entered the correct credentials, your current account will be displayed at the top of the module and on the Gateway Settings tab
+the list for selecting the sender's name will become available. Select a sender if necessary.
+8. The Newsletter tab is used to send SMS to an individual customer or to a group of customers at once.
+9. The Notifications tab is used for SMS settings:
+- Integration (off / on) - enables or disables sending all SMS
+- Buyer's order status - order status, when the transaction goes to which the buyer will receive an SMS
+- Send SMS to the buyer - enables and disables sending SMS to the buyer
+- SMS to the buyer - SMS text, you can use the buttons that insert templates
+- Administrator's order status - the status of the order, when the transaction goes to which the administrator will receive an SMS
+- Send SMS to administrator - enables and disables sending SMS to administrator
+- SMS to the administrator - SMS text, you can use the buttons that insert templates
